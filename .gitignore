@@ -39,12 +39,14 @@ bower_components
 build/Release
 
 # Dependency directories
+# Ignore node_modules directory
 node_modules/
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
 
+# Ignore environment variable files
 # TypeScript cache
 *.tsbuildinfo
 
@@ -83,20 +85,30 @@ web_modules/
 .cache
 .parcel-cache
 
+# Ignore log files
+*.log
 # Next.js build output
 .next
 out
 
+# Ignore build output directories
+dist/
+build/
 # Nuxt.js build / generate output
 .nuxt
 dist
 
+# Ignore system files (e.g., MacOS)
+.DS_Store
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and not Next.js
 # https://nextjs.org/blog/next-9-1#public-directory-support
 # public
 
+# Ignore IDE specific files
+.idea/
+.vscode/
 # vuepress build output
 .vuepress/dist
 

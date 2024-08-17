@@ -44,3 +44,18 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: 'Error logging in', error });
   }
 };
+
+exports.me = async (req, res) => {
+  try {
+    console.log(req.user)
+    const user = await User.findByPk(req.user.userId, {
+      attributes: ['id', 'username', 'role', 'createdAt']
+    });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json({ user });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+}

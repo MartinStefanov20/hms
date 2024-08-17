@@ -7,6 +7,7 @@ import RegisterPage from './pages/RegisterPage';
 import ProtectedRoute from "./util/ProtectedRoute";
 import Dashboard from "./pages/Dashboard";
 import LandingPage from "./pages/LandingPage";
+import AppointmentsPage from "./pages/AppointmentsPage";
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
           <Route
             path="/dashboard"
             element={<ProtectedRoute element={Dashboard} />}
+          />
+          <Route
+            path="/appointments"
+            element={<ProtectedRoute element={AppointmentsPage} />}
           />
         </Routes>
       </Router>

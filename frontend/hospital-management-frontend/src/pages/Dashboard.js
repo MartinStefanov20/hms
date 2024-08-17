@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {Navigate, useNavigate} from 'react-router-dom';
 import AdminDashboard from "../components/AdminDashboard";
 import DoctorDashboard from "../components/DoctorDashboard";
@@ -7,12 +7,7 @@ import {useAuth} from "../context/AuthContext";
 
 const Dashboard = () => {
   const { user, logout }  = useAuth()
-  const [error, setError] = useState('');
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log('MSF: ', user)
-  })
 
   return (
     <div>

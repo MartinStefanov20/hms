@@ -1,4 +1,5 @@
 const Appointment = require('../models/appointment');
+const User = require("../models/user");
 
 // Create an appointment
 exports.createAppointment = async (req, res) => {
@@ -69,14 +70,35 @@ exports.declineAppointment = async (req, res) => {
 
 // Get all appointments for a user
 exports.getUserAppointments = async (req, res) => {
-  const userId = req.body.userId;
-
-  console.log(userId)
+  const { userId, username } = req.query;
+  const { role, userId: currentUserId } = req.user; // Destructure role and user ID from the authenticated user
 
   try {
-    const appointments = await Appointment.findAll({ where: { userId } });
+    let whereClause = {};
+
+    if (role === 'User') {
+      // Regular user can only view their own appointments
+      whereClause.userId = currentUserId;
+    } else if (role === 'Doctor' || role === 'Admin') {
+      // Doctor/Admin can search by user ID or username
+      if (userId) {
+        whereClause.userId = userId;
+      } else if (username) {
+        const user = await User.findOne({ where: { username } });
+        if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+        }
+        whereClause.userId = user.id;
+      }
+    } else {
+      return res.status(403).json({ message: 'Unauthorized access' });
+    }
+
+    const appointments = await Appointment.findAll({ where: whereClause });
+
     res.status(200).json({ appointments });
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching appointments', error });
+    console.error('Error fetching appointments:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };

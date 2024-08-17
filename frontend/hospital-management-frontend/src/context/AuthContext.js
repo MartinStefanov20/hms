@@ -34,7 +34,6 @@ export const AuthProvider = ({ children }) => {
         }
       });
       setUser(responseMe.data.user);
-      console.log('Logged in: user: ', user)
     } catch (error) {
       console.error('Login failed:', error);
       throw error;

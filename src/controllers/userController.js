@@ -7,8 +7,6 @@ require('dotenv').config();
 exports.register = async (req, res) => {
   const { username, password, role } = req.body;
 
-  console.log(req.body); // Add this line to log the request body
-
 
   if (!username || !password || !role) {
     return res.status(400).json({ message: 'All fields are required' });
@@ -47,7 +45,6 @@ exports.login = async (req, res) => {
 
 exports.me = async (req, res) => {
   try {
-    console.log(req.user)
     const user = await User.findByPk(req.user.userId, {
       attributes: ['id', 'username', 'role', 'createdAt']
     });

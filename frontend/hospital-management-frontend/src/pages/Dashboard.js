@@ -13,7 +13,6 @@ const Dashboard = () => {
     <div>
       <h2>Welcome, {user.username}!</h2>
       <p>Role: {user.role}</p>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
       <div>
         <h3>Your Dashboard</h3>
         {

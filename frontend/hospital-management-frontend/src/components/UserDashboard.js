@@ -11,7 +11,7 @@ const UserDashboard = () => {
       </div>
       <div>
         <h3>Request Appointment</h3>
-        <Link to="/request-appointment">Request an Appointment</Link>
+        <Link to="/appointments/create">Request an Appointment</Link>
       </div>
     </div>
   );

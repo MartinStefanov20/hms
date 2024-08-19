@@ -68,6 +68,58 @@ exports.declineAppointment = async (req, res) => {
   }
 };
 
+// Archive an appointment
+exports.archiveAppointment = async (req, res) => {
+  const { appointmentId } = req.params;
+  const userRole = req.user.role;
+
+  if (userRole !== 'Doctor' && userRole !== 'Admin') {
+    return res.status(403).json({ message: 'Access denied. Only doctors and admins can archive appointments.' });
+  }
+
+  try {
+    const appointment = await Appointment.findByPk(appointmentId);
+
+    if (!appointment) {
+      return res.status(404).json({ message: 'Appointment not found' });
+    }
+
+    appointment.status = 'ARCHIVED';
+    await appointment.save();
+
+    res.status(200).json({ message: 'Appointment archived successfully', appointment });
+  } catch (error) {
+    res.status(500).json({ message: 'Error archiving appointment', error });
+  }
+};
+
+
+// Request an appointment
+exports.requestAppointment = async (req, res) => {
+  const { appointmentId } = req.params;
+  const userRole = req.user.role;
+
+  if (userRole !== 'Doctor' && userRole !== 'Admin') {
+    return res.status(403).json({ message: 'Access denied. Only doctors and admins can archive appointments.' });
+  }
+
+  try {
+    const appointment = await Appointment.findByPk(appointmentId);
+
+    if (!appointment) {
+      return res.status(404).json({ message: 'Appointment not found' });
+    }
+
+    appointment.status = 'REQUESTED';
+    await appointment.save();
+
+    res.status(200).json({ message: 'Appointment archived successfully', appointment });
+  } catch (error) {
+    res.status(500).json({ message: 'Error archiving appointment', error });
+  }
+};
+
+
 // Get all appointments for a user
 exports.getUserAppointments = async (req, res) => {
   const { userId, username } = req.query;

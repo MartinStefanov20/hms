@@ -8,6 +8,8 @@ import ProtectedRoute from "./util/ProtectedRoute";
 import Dashboard from "./pages/Dashboard";
 import LandingPage from "./pages/LandingPage";
 import AppointmentsPage from "./pages/AppointmentsPage";
+import CreateAppointmentPage from "./pages/CreateAppointmentPage";
+import ManageAppointmentsPage from "./pages/ManageAppointmentsPage";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
             path="/appointments"
             element={<ProtectedRoute element={AppointmentsPage} />}
           />
+          <Route path="/appointments/create" element={<CreateAppointmentPage />} />
+          <Route path="/appointments/manage" element={<ProtectedRoute element={ManageAppointmentsPage} roles={['Doctor', 'Admin']} />} />
         </Routes>
       </Router>
     </AuthProvider>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import {useNavigate} from "react-router-dom";
 
 const ManageAppointmentsPage = () => {
   const { user } = useAuth();
@@ -8,6 +9,9 @@ const ManageAppointmentsPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [status, setStatus] = useState('');
+
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     fetchAppointments();
@@ -118,11 +122,9 @@ const ManageAppointmentsPage = () => {
                   <option value="ARCHIVED">ARCHIVED</option>
                 </select>
               </td>
-              {appointment.status === 'ARCHIVED' ? (
-                <td>
-                  <button>Write Prescription</button>
-                </td>
-              ) : null}
+              {appointment.status === 'ARCHIVED' && (
+                <button onClick={() => navigate(`/prescription/${appointment.id}`)}>Write Prescription</button>
+              )}
             </tr>
           ))}
           </tbody>

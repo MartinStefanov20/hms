@@ -10,6 +10,8 @@ import LandingPage from "./pages/LandingPage";
 import AppointmentsPage from "./pages/AppointmentsPage";
 import CreateAppointmentPage from "./pages/CreateAppointmentPage";
 import ManageAppointmentsPage from "./pages/ManageAppointmentsPage";
+import PrescriptionPage from "./pages/PrescriptionPage";
+import UserPrescriptionsPage from "./pages/UserPrescriptionPage";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           />
           <Route path="/appointments/create" element={<CreateAppointmentPage />} />
           <Route path="/appointments/manage" element={<ProtectedRoute element={ManageAppointmentsPage} roles={['Doctor', 'Admin']} />} />
+          <Route path="/prescription/:appointmentId" element={<ProtectedRoute element={PrescriptionPage} roles={['Doctor', 'Admin']} />} />
+          <Route path="/prescriptions" element={<ProtectedRoute element={UserPrescriptionsPage} />} />
         </Routes>
       </Router>
     </AuthProvider>

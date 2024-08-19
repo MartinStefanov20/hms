@@ -12,6 +12,7 @@ import CreateAppointmentPage from "./pages/CreateAppointmentPage";
 import ManageAppointmentsPage from "./pages/ManageAppointmentsPage";
 import PrescriptionPage from "./pages/PrescriptionPage";
 import UserPrescriptionsPage from "./pages/UserPrescriptionPage";
+import AdminUserManagementPage from "./pages/AdminUserManagmentPage";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/appointments/manage" element={<ProtectedRoute element={ManageAppointmentsPage} roles={['Doctor', 'Admin']} />} />
           <Route path="/prescription/:appointmentId" element={<ProtectedRoute element={PrescriptionPage} roles={['Doctor', 'Admin']} />} />
           <Route path="/prescriptions" element={<ProtectedRoute element={UserPrescriptionsPage} />} />
+          <Route path="/admin/users" element={<ProtectedRoute element={AdminUserManagementPage} roles={['Admin']}/>} />
         </Routes>
       </Router>
     </AuthProvider>

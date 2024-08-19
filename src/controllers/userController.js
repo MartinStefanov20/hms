@@ -56,3 +56,19 @@ exports.me = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 }
+
+exports.getAllUsers = async (req, res) => {
+  const currentUserRole = req.user.role;
+
+  // Check if the current user is an Admin
+  if (currentUserRole !== 'Admin') {
+    return res.status(403).json({ message: 'Access denied. Only admins can fetch all users.' });
+  }
+
+  try {
+    const users = await User.findAll();
+    res.status(200).json({ users });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching users', error });
+  }
+};

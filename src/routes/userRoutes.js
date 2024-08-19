@@ -12,4 +12,7 @@ router.post('/login', userController.login);
 
 router.get('/me', authenticateToken,  userController.me);
 
+router.get('/', authenticateToken, userController.getAllUsers);
+
+
 module.exports = router;

@@ -13,6 +13,10 @@ const UserDashboard = () => {
         <h3>Request Appointment</h3>
         <Link to="/appointments/create">Request an Appointment</Link>
       </div>
+      <div>
+        <h3>Your Prescriptions</h3>
+        <Link to="/prescriptions">View Prescriptions</Link>
+      </div>
     </div>
   );
 };

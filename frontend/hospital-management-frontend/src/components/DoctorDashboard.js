@@ -10,8 +10,8 @@ const DoctorDashboard = () => {
         <Link to="/appointments">View Appointments</Link>
       </div>
       <div>
-        <h3>Write Prescriptions</h3>
-        <Link to="/prescriptions">Write Prescriptions</Link>
+        <h3>Manage Appointments</h3>
+        <Link to="/appointments/manage">Manage Appointments</Link>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import {Link, useNavigate} from 'react-router-dom';
-import '../styles/AuthPage.css'; // Import the CSS file
+import '../styles/AuthPage.css';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -16,7 +16,6 @@ const LoginPage = () => {
       navigate('/dashboard');
     } catch (error) {
       console.error('Failed to login:', error);
-      // Handle login error (e.g., show an error message)
     }
   };
 

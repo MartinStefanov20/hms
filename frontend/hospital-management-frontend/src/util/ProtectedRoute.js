@@ -5,12 +5,10 @@ import { useAuth } from '../context/AuthContext';
 const ProtectedRoute = ({ element: Element, roles, ...rest }) => {
   const { user, loading } = useAuth();
 
-  // If still loading, you can return a loading indicator or null
   if (loading) {
-    return <div>Loading...</div>; // Or a spinner/loader component
+    return <div>Loading...</div>;
   }
 
-  // If not loading and no user, redirect to login
   if (!user) {
     return <Navigate to="/login" />;
   }
@@ -21,7 +19,6 @@ const ProtectedRoute = ({ element: Element, roles, ...rest }) => {
 
   }
 
-  // If user exists, render the component
   return <Element {...rest} />;
 };
 

@@ -80,7 +80,7 @@ const ManageAppointmentsPage = () => {
         }
       );
       setStatus(newStatus);
-      fetchAppointments(); // Refresh appointments after status change
+      fetchAppointments();
     } catch (err) {
       console.error(err);
       setError('Failed to update status');

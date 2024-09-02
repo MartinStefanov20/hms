@@ -5,7 +5,6 @@ import { useAuth } from '../context/AuthContext';
 
 const PrescriptionPage = () => {
   const { appointmentId } = useParams();
-  const { user } = useAuth();
   const navigate = useNavigate();
   const [medication, setMedication] = useState('');
   const [dosage, setDosage] = useState('');
@@ -25,7 +24,7 @@ const PrescriptionPage = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      navigate('/appointments'); // Redirect to appointments page or wherever appropriate
+      navigate('/appointments');
     } catch (err) {
       console.error(err);
       setError('Failed to submit prescription');

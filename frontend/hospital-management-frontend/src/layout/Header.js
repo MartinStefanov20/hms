@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // Import the AuthContext
-import '../styles/Header.css'; // Import the CSS file for styling
+import { useAuth } from '../context/AuthContext';
+import '../styles/Header.css';
 
 const Header = () => {
-  const { user, logout } = useAuth(); // Use the AuthContext to get the user and logout function
+  const { user, logout } = useAuth();
 
   return (
     <header className="header">

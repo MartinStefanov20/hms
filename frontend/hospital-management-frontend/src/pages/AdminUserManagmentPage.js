@@ -1,11 +1,8 @@
-// AdminUserManagementPage.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
 const AdminUserManagementPage = () => {
-  const { user } = useAuth();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -57,7 +54,7 @@ const AdminUserManagementPage = () => {
           },
         }
       );
-      fetchUsers(); // Refresh the user list after role update
+      fetchUsers();
     } catch (err) {
       console.error(err);
       setError('Failed to update user role');

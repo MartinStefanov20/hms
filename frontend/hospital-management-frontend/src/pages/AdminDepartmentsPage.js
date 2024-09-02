@@ -1,10 +1,8 @@
-// src/pages/AdminDepartmentsPage.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
 const AdminDepartmentsPage = () => {
-  const { user } = useAuth();
   const [departments, setDepartments] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [newDepartment, setNewDepartment] = useState('');
@@ -60,7 +58,7 @@ const AdminDepartmentsPage = () => {
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       );
       setNewDepartment('');
-      fetchDepartments(); // Refresh department list
+      fetchDepartments();
     } catch (err) {
       console.error('Failed to create department:', err);
       setError('Failed to create department');
@@ -77,7 +75,7 @@ const AdminDepartmentsPage = () => {
       );
       setSelectedDepartment('');
       setSelectedDoctor('');
-      fetchDepartments(); // Refresh department list
+      fetchDepartments();
     } catch (err) {
       console.error('Failed to add doctor to department:', err);
       setError('Failed to add doctor to department');

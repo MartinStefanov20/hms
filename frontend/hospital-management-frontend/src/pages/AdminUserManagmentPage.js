@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import '../styles/AdminUserManagementPage.css'; // Import the CSS file
 
 const AdminUserManagementPage = () => {
   const [users, setUsers] = useState([]);
@@ -69,13 +70,13 @@ const AdminUserManagementPage = () => {
   };
 
   return (
-    <div>
+    <div className="user-management-container">
       <h1>Manage Users</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
       {loading ? (
-        <p>Loading...</p>
+        <p className="loading-message">Loading...</p>
       ) : (
-        <table>
+        <table className="user-table">
           <thead>
           <tr>
             <th>ID</th>
@@ -95,6 +96,7 @@ const AdminUserManagementPage = () => {
                 <select
                   value={selectedRoles[user.id] || user.role}
                   onChange={(e) => handleRoleSelect(user.id, e.target.value)}
+                  className="role-select"
                 >
                   <option value="">Select Role</option>
                   <option value="User">User</option>
@@ -103,7 +105,7 @@ const AdminUserManagementPage = () => {
                 </select>
               </td>
               <td>
-                <button onClick={() => handleRoleChange(user.id)}>Update Role</button>
+                <button onClick={() => handleRoleChange(user.id)} className="update-button">Update Role</button>
               </td>
             </tr>
           ))}

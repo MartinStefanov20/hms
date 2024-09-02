@@ -43,6 +43,9 @@ const AppointmentsPage = () => {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
 
+      console.log(response.data)
+      console.log(response.data.appointments[0].Prescription)
+
       setAppointments(response.data.appointments);
     } catch (error) {
       console.error('Failed to fetch appointments:', error);
@@ -100,6 +103,18 @@ const AppointmentsPage = () => {
             <h3>Appointment ID: {appointment.id}</h3>
             <p>Date: {new Date(appointment.date).toLocaleString()}</p>
             <p>Status: {appointment.status}</p>
+            {appointment.Prescription ? (
+              <div className="prescriptions-container">
+                <h4>Prescription:</h4>
+                <div className="prescription-card">
+                  <p><strong>Medication:</strong> {appointment.Prescription.medication}</p>
+                  <p><strong>Dosage:</strong> {appointment.Prescription.dosage}</p>
+                  <p><strong>Instructions:</strong> {appointment.Prescription.instructions}</p>
+                </div>
+              </div>
+            ) : (
+              <p>No prescription available</p>
+            )}
             {appointment.status === 'REQUESTED' && (
               <div className="reschedule-container">
                 <input

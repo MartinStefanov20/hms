@@ -1,5 +1,6 @@
 const Appointment = require('../models/appointment');
 const User = require("../models/user");
+const Prescription = require("../models/prescription");
 
 // Create an appointment
 exports.createAppointment = async (req, res) => {
@@ -123,16 +124,14 @@ exports.requestAppointment = async (req, res) => {
 // Get all appointments for a user
 exports.getUserAppointments = async (req, res) => {
   const { userId, username } = req.query;
-  const { role, userId: currentUserId } = req.user; // Destructure role and user ID from the authenticated user
+  const { role, userId: currentUserId } = req.user;
 
   try {
     let whereClause = {};
 
     if (role === 'User') {
-      // Regular user can only view their own appointments
       whereClause.userId = currentUserId;
     } else if (role === 'Doctor' || role === 'Admin') {
-      // Doctor/Admin can search by user ID or username
       if (userId) {
         whereClause.userId = userId;
       } else if (username) {
@@ -146,7 +145,13 @@ exports.getUserAppointments = async (req, res) => {
       return res.status(403).json({ message: 'Unauthorized access' });
     }
 
-    const appointments = await Appointment.findAll({ where: whereClause });
+    const appointments = await Appointment.findAll({
+      where: whereClause,
+      include: [{
+        model: Prescription,
+        attributes: ['id', 'medication', 'dosage', 'instructions']
+      }]
+    });
 
     res.status(200).json({ appointments });
   } catch (error) {

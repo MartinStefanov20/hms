@@ -1,25 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import '../styles/Dashboard.css';
 
 const AdminDashboard = () => {
   return (
-    <div>
+    <div className="dashboard-section">
       <h2>Admin Dashboard</h2>
-      <div>
-        <h3>Your Appointments</h3>
-        <Link to="/appointments">View Appointments</Link>
-      </div>
-      <div>
-        <h3>Manage Appointments</h3>
-        <Link to="/appointments/manage">View Appointments</Link>
-      </div>
-      <div>
-        <h3>Manage Users</h3>
-        <Link to="/admin/users">Manage Users</Link>
-      </div>
-      <div>
-        <h3>Manage Departments</h3>
-        <Link to="/departments">View Departments</Link>
+      <div className="dashboard-grid">
+        <div className="dashboard-card">
+          <h3>View All Appointments</h3>
+          <Link to="/appointments" className="dashboard-link">View Appointments</Link>
+        </div>
+        <div className="dashboard-card">
+          <h3>Manage Appointments</h3>
+          <Link to="/appointments/manage" className="dashboard-link">Manage Appointments</Link>
+        </div>
+        <div className="dashboard-card">
+          <h3>Manage Users</h3>
+          <Link to="/admin/users" className="dashboard-link">Manage Users</Link>
+        </div>
+        <div className="dashboard-card">
+          <h3>Manage Departments</h3>
+          <Link to="/departments" className="dashboard-link">View Departments</Link>
+        </div>
       </div>
     </div>
   );

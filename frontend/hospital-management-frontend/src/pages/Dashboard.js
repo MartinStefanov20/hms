@@ -4,35 +4,26 @@ import AdminDashboard from "../components/AdminDashboard";
 import DoctorDashboard from "../components/DoctorDashboard";
 import UserDashboard from "../components/UserDashboard";
 import {useAuth} from "../context/AuthContext";
+import '../styles/Dashboard.css';
 
 const Dashboard = () => {
-  const { user, logout }  = useAuth()
+  const {user, logout} = useAuth();
   const navigate = useNavigate();
 
   return (
-    <div>
-      <h2>Welcome, {user.username}!</h2>
-      <p>Role: {user.role}</p>
-      <div>
-        <h3>Your Dashboard</h3>
-        {
-          user.role === 'Admin' ? <AdminDashboard /> :
-          user.role === 'Doctor' ? <DoctorDashboard /> :
-          user.role === 'User' ? <UserDashboard /> :
-          <Navigate to="/" />
-        }
+    <div className="dashboard-wrapper">
+      <div className="dashboard">
+        <div className="dashboard-welcome">Welcome, {user.username}!</div>
+        <div className="dashboard-role">Role: {user.role}</div>
+        <div className="dashboard-content">
+          {
+            user.role === 'Admin' ? <AdminDashboard/> :
+              user.role === 'Doctor' ? <DoctorDashboard/> :
+                user.role === 'User' ? <UserDashboard/> :
+                  <Navigate to="/"/>
+          }
+        </div>
       </div>
-      <button onClick={() => {
-        navigate('/');
-      }}>
-        Home
-      </button>
-      <button onClick={() => {
-        logout()
-        navigate('/');
-      }}>
-        Logout
-      </button>
     </div>
   );
 };

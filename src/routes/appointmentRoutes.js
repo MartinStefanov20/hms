@@ -23,4 +23,6 @@ router.put('/request/:appointmentId', authenticateToken, roleMiddleware(['Doctor
 // Get user appointments
 router.get('/', authenticateToken, appointmentController.getUserAppointments);
 
+router.put('/request-reschedule/:appointmentId', authenticateToken, appointmentController.requestReschedule);
+
 module.exports = router;

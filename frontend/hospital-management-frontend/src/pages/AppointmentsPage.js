@@ -1,4 +1,3 @@
-// src/pages/AppointmentsPage.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
@@ -8,6 +7,8 @@ const AppointmentsPage = () => {
   const [appointments, setAppointments] = useState([]);
   const [searchUser, setSearchUser] = useState('');
   const [searchId, setSearchId] = useState('');
+  const [rescheduleAppointment, setRescheduleAppointment] = useState({ id: null, newDate: '' });
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -47,6 +48,29 @@ const AppointmentsPage = () => {
     }
   };
 
+  const handleReschedule = async (appointmentId) => {
+    setError('');
+    try {
+      await axios.put(
+        `http://localhost:3000/api/appointments/request-reschedule/${appointmentId}`,
+        { newDate: rescheduleAppointment.newDate },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+      setRescheduleAppointment({ id: null, newDate: '' });
+      const updatedAppointments = appointments.map(appointment =>
+        appointment.id === appointmentId ? { ...appointment, status: 'RESCHEDULED' } : appointment
+      );
+      setAppointments(updatedAppointments);
+    } catch (err) {
+      console.error('Failed to request reschedule:', err);
+      setError('Failed to request reschedule');
+    }
+  };
+
   return (
     <div>
       <h2>Appointments</h2>
@@ -70,10 +94,25 @@ const AppointmentsPage = () => {
       <ul>
         {appointments.map((appointment) => (
           <li key={appointment.id}>
-            Appointment ID: {appointment.id} | Date: {new Date(appointment.date).toLocaleString()} | Status: {appointment.status}
+            Appointment ID: {appointment.id} | Date: {new Date(appointment.date).toLocaleString()} |
+            Status: {appointment.status}
+            {appointment.status === 'REQUESTED' && (
+              <>
+                <input
+                  type="datetime-local"
+                  value={rescheduleAppointment.id === appointment.id && rescheduleAppointment.newDate
+                    ? rescheduleAppointment.newDate
+                    : new Date(appointment.date).toISOString().slice(0, 16)
+                  }
+                  onChange={(e) => setRescheduleAppointment({ id: appointment.id, newDate: e.target.value })}
+                />
+                <button onClick={() => handleReschedule(appointment.id)}>Request Reschedule</button>
+              </>
+            )}
           </li>
         ))}
       </ul>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 };

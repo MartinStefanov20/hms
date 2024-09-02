@@ -154,3 +154,34 @@ exports.getUserAppointments = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+// Request rescheduling of an appointment
+exports.requestReschedule = async (req, res) => {
+  const { appointmentId } = req.params;
+  const { newDate } = req.body;
+  const userId = req.user.userId;
+
+  if (!newDate) {
+    return res.status(400).json({ message: 'New date is required' });
+  }
+
+  try {
+    const appointment = await Appointment.findByPk(appointmentId);
+
+    if (!appointment) {
+      return res.status(404).json({ message: 'Appointment not found' });
+    }
+
+    if (appointment.userId !== userId) {
+      return res.status(403).json({ message: 'You are not authorized to request rescheduling for this appointment' });
+    }
+
+    appointment.status = 'REQUESTED';
+    appointment.date = newDate;
+    await appointment.save();
+
+    res.status(200).json({ message: 'Reschedule request submitted successfully', appointment });
+  } catch (error) {
+    res.status(500).json({ message: 'Error requesting reschedule', error });
+  }
+};

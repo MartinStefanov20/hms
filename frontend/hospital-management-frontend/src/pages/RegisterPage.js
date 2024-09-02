@@ -11,7 +11,7 @@ const RegisterPage = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3000/api/users/register', { username, password });
+      await axios.post('http://localhost:3000/api/users/register', { username, password, role: "User" });
       navigate('/');
     } catch (err) {
       setError('Registration failed');

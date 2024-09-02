@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useAuth } from '../context/AuthContext';
+import '../styles/AdminDepartmentsPage.css'; // Import the CSS file
 
 const AdminDepartmentsPage = () => {
   const [departments, setDepartments] = useState([]);
@@ -83,29 +83,31 @@ const AdminDepartmentsPage = () => {
   };
 
   return (
-    <div>
+    <div className="admin-departments-container">
       <h1>Manage Departments</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
       {loading ? (
-        <p>Loading...</p>
+        <p className="loading-message">Loading...</p>
       ) : (
         <>
-          <div>
+          <div className="section">
             <h2>Create a New Department</h2>
             <input
               type="text"
               placeholder="Department Name"
               value={newDepartment}
               onChange={(e) => setNewDepartment(e.target.value)}
+              className="input-field"
             />
-            <button onClick={handleCreateDepartment}>Create Department</button>
+            <button onClick={handleCreateDepartment} className="submit-button">Create Department</button>
           </div>
 
-          <div>
+          <div className="section">
             <h2>Add Doctor to Department</h2>
             <select
               value={selectedDepartment}
               onChange={(e) => setSelectedDepartment(e.target.value)}
+              className="select-field"
             >
               <option value="">Select Department</option>
               {departments.map((department) => (
@@ -118,6 +120,7 @@ const AdminDepartmentsPage = () => {
             <select
               value={selectedDoctor}
               onChange={(e) => setSelectedDoctor(e.target.value)}
+              className="select-field"
             >
               <option value="">Select Doctor</option>
               {doctors.map((doctor) => (
@@ -127,7 +130,7 @@ const AdminDepartmentsPage = () => {
               ))}
             </select>
 
-            <button onClick={handleAddDoctorToDepartment}>
+            <button onClick={handleAddDoctorToDepartment} className="submit-button">
               Add Doctor to Department
             </button>
           </div>

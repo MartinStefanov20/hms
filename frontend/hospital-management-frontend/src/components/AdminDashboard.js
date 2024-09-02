@@ -21,7 +21,7 @@ const AdminDashboard = () => {
         </div>
         <div className="dashboard-card">
           <h3>Manage Departments</h3>
-          <Link to="/departments" className="dashboard-link">View Departments</Link>
+          <Link to="/departments/manage" className="dashboard-link">View Departments</Link>
         </div>
       </div>
     </div>

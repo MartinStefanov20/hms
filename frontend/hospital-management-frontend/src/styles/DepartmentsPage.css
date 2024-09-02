@@ -1,0 +1,50 @@
+/* DepartmentsPage.css */
+.departments-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 20px;
+}
+
+.loading-message {
+    font-size: 18px;
+    color: #555;
+}
+
+.departments-list {
+    margin-top: 20px;
+}
+
+.department-card {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+
+.department-card h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.doctor-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.doctor-item {
+    padding: 5px 0;
+}

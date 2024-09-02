@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import '../styles/UserPrescriptionsPage.css'; // Import the CSS file
 
 const UserPrescriptionsPage = () => {
   const { user } = useAuth();
@@ -51,13 +52,13 @@ const UserPrescriptionsPage = () => {
   };
 
   return (
-    <div>
+    <div className="prescriptions-container">
       <h1>Your Prescriptions</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <table>
+        <table className="prescriptions-table">
           <thead>
           <tr>
             <th>ID</th>

@@ -8,7 +8,7 @@ const DoctorDashboard = () => {
       <h2>Doctor Dashboard</h2>
       <div className="dashboard-grid">
         <div className="dashboard-card">
-          <h3>Your Appointments</h3>
+          <h3>View All Appointments</h3>
           <Link to="/appointments" className="dashboard-link">View Appointments</Link>
         </div>
         <div className="dashboard-card">

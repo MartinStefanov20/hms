@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/LandingPage.css';
+import {Link} from "react-router-dom";
 
 const LandingPage = () => {
   return (
@@ -9,7 +10,7 @@ const LandingPage = () => {
           <div className="hero-text">
             <h1>Welcome to MyHealth</h1>
             <p>Your health, our priority. Explore our services and get the best care.</p>
-            <a href="/appointments" className="cta-button">Book an Appointment</a>
+            <Link to="/appointments/create" className="cta-button">Book an Appointment</Link>
           </div>
         </section>
         <section className="features">

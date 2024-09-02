@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import '../styles/PrescriptionPage.css'; // Import the CSS file
 
 const PrescriptionPage = () => {
   const { appointmentId } = useParams();
@@ -32,40 +33,43 @@ const PrescriptionPage = () => {
   };
 
   return (
-    <div>
+    <div className="prescription-container">
       <h1>Write Prescription</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
+      {error && <p className="error-message">{error}</p>}
+      <form onSubmit={handleSubmit} className="prescription-form">
+        <div className="form-group">
           <label htmlFor="medication">Medication:</label>
           <input
             type="text"
             id="medication"
             value={medication}
             onChange={(e) => setMedication(e.target.value)}
+            className="form-input"
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="dosage">Dosage:</label>
           <input
             type="text"
             id="dosage"
             value={dosage}
             onChange={(e) => setDosage(e.target.value)}
+            className="form-input"
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="instructions">Instructions:</label>
           <textarea
             id="instructions"
             value={instructions}
             onChange={(e) => setInstructions(e.target.value)}
+            className="form-textarea"
             required
           />
         </div>
-        <button type="submit">Submit Prescription</button>
+        <button type="submit" className="submit-button">Submit Prescription</button>
       </form>
     </div>
   );

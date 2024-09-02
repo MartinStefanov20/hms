@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/database'); // Adjust the path as necessary
+const sequelize = require('../config/database');
+const User = require("./user"); // Adjust the path as necessary
 
 class Department extends Model {}
 
@@ -15,5 +16,8 @@ Department.init({
   tableName: 'Departments',
   timestamps: true
 });
+
+Department.hasMany(User, { foreignKey: 'departmentId' });
+User.belongsTo(Department, { foreignKey: 'departmentId' });
 
 module.exports = Department;

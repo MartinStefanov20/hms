@@ -8,6 +8,10 @@ const roleMiddleware = require("../middleware/roleMiddleware");
 router.post('/', authenticateToken, roleMiddleware(['Admin']), departmentController.createDepartment);
 
 // Get all departments
-router.get('/', authenticateToken, departmentController.getDepartments);
+router.get('/', departmentController.getDepartments);
+
+// Add a doctor to a department
+router.put('/:departmentId/add-doctor', authenticateToken, roleMiddleware(['Admin']), departmentController.addDoctorToDepartment);
+
 
 module.exports = router;

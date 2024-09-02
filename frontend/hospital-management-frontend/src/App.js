@@ -13,6 +13,8 @@ import ManageAppointmentsPage from "./pages/ManageAppointmentsPage";
 import PrescriptionPage from "./pages/PrescriptionPage";
 import UserPrescriptionsPage from "./pages/UserPrescriptionPage";
 import AdminUserManagementPage from "./pages/AdminUserManagmentPage";
+import DepartmentsPage from "./pages/DepartmentsPage";
+import AdminDepartmentsPage from "./pages/AdminDepartmentsPage";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="/" element={<LandingPage />}/>
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/register" element={<RegisterPage/>}/>
+          <Route path="/departments" element={<DepartmentsPage/>}/>
+          <Route path="/departments/manage" element={<ProtectedRoute element={AdminDepartmentsPage} roles={['Admin']}/>}/>
           <Route
             path="/dashboard"
             element={<ProtectedRoute element={Dashboard} />}

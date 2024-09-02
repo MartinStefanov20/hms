@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { useAuth } from '../context/AuthContext';
-import {useNavigate} from "react-router-dom";
+import {useAuth} from '../context/AuthContext';
+import {useNavigate} from 'react-router-dom';
+import '../styles/ManageAppointments.css'; // Import the CSS file
 
 const ManageAppointmentsPage = () => {
-  const { user } = useAuth();
+  const {user} = useAuth();
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [status, setStatus] = useState('');
-
   const navigate = useNavigate();
-
 
   useEffect(() => {
     fetchAppointments();
@@ -21,15 +19,11 @@ const ManageAppointmentsPage = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.get(`http://localhost:3000/api/appointments?doctorId=${user.id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
+      const response = await axios.get(`http://localhost:3000/api/appointments/appointments-for-doctor`, {
+        headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
       });
-
       const sortedAppointments = sortAppointments(response.data.appointments);
       setAppointments(sortedAppointments);
-      console.log(sortedAppointments);
     } catch (err) {
       console.error(err);
       setError('Failed to fetch appointments');
@@ -55,31 +49,20 @@ const ManageAppointmentsPage = () => {
     });
   };
 
-
   const handleChangeStatus = async (appointmentId, newStatus) => {
     setError('');
     try {
       let action;
-      if (newStatus === "CONFIRMED") {
-        action = 'approve';
-      } else if (newStatus === "DENIED") {
-        action = 'decline';
-      } else if (newStatus === "ARCHIVED") {
-        action = 'archive';
-      } else if (newStatus === "REQUESTED") {
-        action = 'request'
-      }
+      if (newStatus === 'CONFIRMED') action = 'approve';
+      else if (newStatus === 'DENIED') action = 'decline';
+      else if (newStatus === 'ARCHIVED') action = 'archive';
+      else if (newStatus === 'REQUESTED') action = 'request';
 
       await axios.put(
         `http://localhost:3000/api/appointments/${action}/${appointmentId}`,
         {},
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        }
+        {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}}
       );
-      setStatus(newStatus);
       fetchAppointments();
     } catch (err) {
       console.error(err);
@@ -88,13 +71,13 @@ const ManageAppointmentsPage = () => {
   };
 
   return (
-    <div>
+    <div className="manage-appointments-container">
       <h1>Manage Appointments</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <table>
+        <table className="appointments-table">
           <thead>
           <tr>
             <th>ID</th>
@@ -115,6 +98,7 @@ const ManageAppointmentsPage = () => {
                 <select
                   value={appointment.status}
                   onChange={(e) => handleChangeStatus(appointment.id, e.target.value)}
+                  className="status-select"
                 >
                   <option value="REQUESTED">REQUESTED</option>
                   <option value="CONFIRMED">CONFIRMED</option>
@@ -123,7 +107,14 @@ const ManageAppointmentsPage = () => {
                 </select>
               </td>
               {appointment.status === 'ARCHIVED' && (
-                <button onClick={() => navigate(`/prescription/${appointment.id}`)}>Write Prescription</button>
+                <td>
+                  <button
+                    onClick={() => navigate(`/prescription/${appointment.id}`)}
+                    className="write-prescription-button"
+                  >
+                    Write Prescription
+                  </button>
+                </td>
               )}
             </tr>
           ))}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import '../styles/Appointments.css'; // Import the CSS file
 
 const AppointmentsPage = () => {
   const { user } = useAuth();
@@ -72,32 +73,35 @@ const AppointmentsPage = () => {
   };
 
   return (
-    <div>
+    <div className="appointments-container">
       <h2>Appointments</h2>
       {user.role !== 'User' && (
-        <div>
+        <div className="search-container">
           <input
             type="text"
             placeholder="Search by username"
             value={searchUser}
             onChange={(e) => setSearchUser(e.target.value)}
+            className="search-input"
           />
           <input
             type="text"
             placeholder="Search by user ID"
             value={searchId}
             onChange={(e) => setSearchId(e.target.value)}
+            className="search-input"
           />
-          <button onClick={handleSearch}>Search</button>
+          <button onClick={handleSearch} className="search-button">Search</button>
         </div>
       )}
-      <ul>
+      <div className="appointments-list">
         {appointments.map((appointment) => (
-          <li key={appointment.id}>
-            Appointment ID: {appointment.id} | Date: {new Date(appointment.date).toLocaleString()} |
-            Status: {appointment.status}
+          <div key={appointment.id} className="appointment-card">
+            <h3>Appointment ID: {appointment.id}</h3>
+            <p>Date: {new Date(appointment.date).toLocaleString()}</p>
+            <p>Status: {appointment.status}</p>
             {appointment.status === 'REQUESTED' && (
-              <>
+              <div className="reschedule-container">
                 <input
                   type="datetime-local"
                   value={rescheduleAppointment.id === appointment.id && rescheduleAppointment.newDate
@@ -105,14 +109,15 @@ const AppointmentsPage = () => {
                     : new Date(appointment.date).toISOString().slice(0, 16)
                   }
                   onChange={(e) => setRescheduleAppointment({ id: appointment.id, newDate: e.target.value })}
+                  className="datetime-input"
                 />
-                <button onClick={() => handleReschedule(appointment.id)}>Request Reschedule</button>
-              </>
+                <button onClick={() => handleReschedule(appointment.id)} className="reschedule-button">Request Reschedule</button>
+              </div>
             )}
-          </li>
+          </div>
         ))}
-      </ul>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      </div>
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 };

@@ -155,6 +155,29 @@ exports.getUserAppointments = async (req, res) => {
   }
 };
 
+// Get all appointments for a doctor or all appointments for an admin
+exports.getAppointmentsForDoctorId = async (req, res) => {
+  const { role, userId: currentUserId } = req.user; // Destructure role and user ID from the authenticated user
+
+  try {
+    let whereClause = {};
+
+    if (role === 'Doctor') {
+      whereClause.doctorId = currentUserId;
+    } else if (role === 'Admin') {
+    } else {
+      return res.status(403).json({ message: 'Unauthorized access' });
+    }
+
+    const appointments = await Appointment.findAll({ where: whereClause });
+
+    res.status(200).json({ appointments });
+  } catch (error) {
+    console.error('Error fetching appointments:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 // Request rescheduling of an appointment
 exports.requestReschedule = async (req, res) => {
   const { appointmentId } = req.params;

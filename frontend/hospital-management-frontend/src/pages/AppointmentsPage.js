@@ -77,7 +77,7 @@ const AppointmentsPage = () => {
 
   return (
     <div className="appointments-container">
-      <h2>Data Records</h2>
+      {user.role === 'User' ? (<h2>Appointments</h2>) : <h2>Data Records</h2>}
       {user.role !== 'User' && (
         <div className="search-container">
           <input

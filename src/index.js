@@ -6,6 +6,7 @@ const roleRoutes = require('./routes/roleRoutes');
 const appointmentRoutes = require('./routes/appointmentRoutes');
 const prescriptionRoutes = require('./routes/prescriptionRoutes');
 const departmentRoutes = require('./routes/departmentRoutes');
+const {sendReminderEmail} = require("./config/mail");
 
 
 require('dotenv').config();

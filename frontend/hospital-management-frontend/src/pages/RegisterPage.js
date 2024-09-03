@@ -5,6 +5,7 @@ import '../styles/AuthPage.css';
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const RegisterPage = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3000/api/users/register', {username, password, role: "User"});
+      await axios.post('http://localhost:3000/api/users/register', {username, password, email, role: "User"});
       navigate('/');
     } catch (err) {
       setError('Registration failed');
@@ -32,6 +33,16 @@ const RegisterPage = () => {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              id="email"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>

@@ -16,6 +16,7 @@ import DepartmentsPage from "./pages/DepartmentsPage";
 import AdminDepartmentsPage from "./pages/AdminDepartmentsPage";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
+import AdminRemindersPage from "./pages/AdminRemindersPage";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
                    element={<ProtectedRoute element={PrescriptionPage} roles={['Doctor', 'Admin']}/>}/>
             <Route path="/prescriptions" element={<ProtectedRoute element={UserPrescriptionsPage}/>}/>
             <Route path="/admin/users" element={<ProtectedRoute element={AdminUserManagementPage} roles={['Admin']}/>}/>
+            <Route path="/admin/send-reminders" element={<ProtectedRoute element={AdminRemindersPage} roles={['Admin']}/>}/>
           </Routes>
         </div>
         <Footer/>

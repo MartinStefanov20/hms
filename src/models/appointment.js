@@ -36,9 +36,10 @@ const Appointment = sequelize.define('Appointment', {
 });
 
 // Associations
-User.hasMany(Appointment, { foreignKey: 'userId' });
-Appointment.belongsTo(User, { as: 'User', foreignKey: 'userId' });
-User.hasMany(Appointment, { foreignKey: 'doctorId' });
-Appointment.belongsTo(User, { as: 'Doctor', foreignKey: 'doctorId' });
+User.hasMany(Appointment, { foreignKey: 'userId', as: 'AppointmentsAsPatient' });
+Appointment.belongsTo(User, { as: 'patient', foreignKey: 'userId' });
+
+User.hasMany(Appointment, { foreignKey: 'doctorId', as: 'AppointmentsAsDoctor' });
+Appointment.belongsTo(User, { as: 'doctor', foreignKey: 'doctorId' });
 
 module.exports = Appointment;

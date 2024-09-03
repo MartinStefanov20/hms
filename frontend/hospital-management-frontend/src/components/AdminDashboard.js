@@ -23,6 +23,10 @@ const AdminDashboard = () => {
           <h3>Manage Departments</h3>
           <Link to="/departments/manage" className="dashboard-link">View Departments</Link>
         </div>
+        <div className="dashboard-card">
+          <h3>Send Reminders</h3>
+          <Link to="/admin/send-reminders" className="dashboard-link">Send Reminders</Link>
+        </div>
       </div>
     </div>
   );

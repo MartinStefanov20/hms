@@ -6,6 +6,8 @@ import '../styles/AuthPage.css';
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -23,6 +25,7 @@ const LoginPage = () => {
     <div className="auth-page">
       <div className="auth-container">
         <h2>Login</h2>
+        {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleLogin} className="auth-form">
           <div className="form-group">
             <label htmlFor="username">Username:</label>
